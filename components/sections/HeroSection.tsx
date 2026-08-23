@@ -3,9 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { HeroNeuralCore } from "@/components/3d/HeroNeuralCore";
 import { Button3D } from "@/components/ui/Button3D";
 import { TerminalHUD } from "@/components/ui/TerminalHUD";
-import { ArrowDown, ArrowUpRight, Cpu, Sparkles } from "lucide-react";
+import { ArrowDown, Cpu, Sparkles } from "lucide-react";
 import { Icons } from "@/components/ui/Icons";
 
 export const HeroSection: React.FC = () => {
@@ -26,7 +27,7 @@ export const HeroSection: React.FC = () => {
         >
           {/* Status HUD Badges & Profile Avatar */}
           <div className="flex flex-wrap items-center gap-3">
-            {/* Profile Avatar Badge */}
+            {/* Profile Avatar Badge — small corner photo */}
             <a
               href="https://www.instagram.com/responsible_boy_1821?igsi=NGRxZWtsYjd0dDAy"
               target="_blank"
@@ -126,96 +127,51 @@ export const HeroSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Right — Portrait Photo Showcase */}
+        {/* Right — 3D Neural Core Visualization (RESTORED) */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 relative flex items-center justify-center"
         >
-          {/* Outer ambient glow ring */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              className="w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full border border-dashed border-violet-400/20 dark:border-violet-500/20"
-            />
-          </div>
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] rounded-full border border-dashed border-cyan-400/15 dark:border-cyan-500/15 pointer-events-none"
-          />
+          <div className="relative w-full aspect-square max-w-[460px] flex items-center justify-center">
+            {/* 3D Neural Core Globe Canvas */}
+            <HeroNeuralCore />
 
-          {/* Glow blob behind photo */}
-          <div className="absolute w-64 h-72 bg-violet-500/20 dark:bg-violet-600/20 rounded-full blur-[60px] pointer-events-none" />
-          <div className="absolute w-48 h-64 bg-cyan-500/15 dark:bg-cyan-500/15 rounded-full blur-[50px] translate-x-8 translate-y-4 pointer-events-none" />
-
-          {/* Photo frame card */}
-          <motion.div
-            whileHover={{ scale: 1.03, rotateY: 4, rotateX: -3 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            style={{ transformStyle: "preserve-3d", perspective: 900 }}
-            className="relative z-10 w-[260px] sm:w-[310px]"
-          >
-            {/* Glassmorphism card border */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/30 dark:border-white/10 bg-gradient-to-br from-white/50 via-slate-100/30 to-white/10 dark:from-white/5 dark:via-white/3 dark:to-transparent backdrop-blur-sm">
-              {/* Shimmer top edge */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/60 to-transparent z-20" />
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent z-20" />
-
-              {/* The portrait */}
-              <div className="relative w-full aspect-[3/4] overflow-hidden">
-                <Image
-                  src="/profile2.jpg"
-                  alt="Rithishwaran K — Builder, Founder & AI Engineer"
-                  fill
-                  priority
-                  className="object-cover object-top"
-                  sizes="(max-width: 768px) 260px, 310px"
-                />
-                {/* Subtle gradient overlay at bottom for card footer readability */}
-                <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
-
-                {/* Name + title overlay on photo */}
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <p className="text-white font-black text-lg tracking-tight uppercase leading-tight drop-shadow-lg">
-                    RITHISHWARAN K
-                  </p>
-                  <p className="text-cyan-300 font-mono text-[11px] uppercase tracking-widest drop-shadow">
-                    Builder · Founder · AI Engineer
-                  </p>
-                </div>
-
-                {/* Top-left badge */}
-                <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-white font-mono text-[10px] uppercase tracking-wider font-bold">LIVE</span>
-                </div>
-              </div>
+            {/* Floating Orbiting Labels */}
+            <div className="absolute top-4 -left-4 px-3 py-1.5 rounded-xl bg-white/90 dark:bg-[#121212]/90 border border-violet-300 dark:border-violet-500/30 backdrop-blur-md font-mono text-[10px] text-violet-700 dark:text-violet-300 shadow-xl pointer-events-none hidden sm:block">
+              <span className="text-cyan-600 dark:text-cyan-400 font-bold">TENSOR_CORE:</span> ACTIVE (Q/K/V)
             </div>
 
-            {/* Floating info chips */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="absolute -left-12 top-1/4 px-3 py-1.5 rounded-xl bg-white/95 dark:bg-[#151515]/95 border border-violet-200 dark:border-violet-500/30 backdrop-blur-md shadow-xl pointer-events-none hidden sm:flex items-center gap-2"
-            >
-              <span className="text-violet-600 dark:text-violet-400 font-mono text-[10px] font-bold">APEX LABS</span>
-              <ArrowUpRight className="w-3 h-3 text-violet-500" />
-            </motion.div>
+            <div className="absolute bottom-6 -right-2 px-3 py-1.5 rounded-xl bg-white/90 dark:bg-[#121212]/90 border border-cyan-300 dark:border-cyan-500/30 backdrop-blur-md font-mono text-[10px] text-cyan-700 dark:text-cyan-300 shadow-xl pointer-events-none hidden sm:block">
+              <span className="text-violet-600 dark:text-violet-400 font-bold">NODES:</span> 700+ SYNAPSES
+            </div>
 
+            {/* Small portrait photo — bottom-left corner of globe area */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-              className="absolute -right-10 bottom-1/3 px-3 py-1.5 rounded-xl bg-white/95 dark:bg-[#151515]/95 border border-cyan-200 dark:border-cyan-500/30 backdrop-blur-md shadow-xl pointer-events-none hidden sm:flex items-center gap-2"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.9, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute bottom-2 left-0 z-20 hidden sm:block"
             >
-              <span className="text-cyan-600 dark:text-cyan-400 font-mono text-[10px] font-bold">LLM BUILDER</span>
-              <Cpu className="w-3 h-3 text-cyan-500" />
+              <div className="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-violet-400/60 dark:border-violet-500/60 shadow-[0_0_18px_rgba(139,92,246,0.45)] bg-black">
+                <Image
+                  src="/profile2.jpg"
+                  alt="Rithishwaran K"
+                  fill
+                  className="object-cover object-top"
+                />
+                {/* Live pulse dot */}
+                <span className="absolute top-1 right-1 flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+                </span>
+              </div>
+              <p className="text-center text-[9px] font-mono font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest mt-1">
+                RITHISHWARAN
+              </p>
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

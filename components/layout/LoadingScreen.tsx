@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { sound } from "@/lib/audio";
 
@@ -70,21 +71,69 @@ export const LoadingScreen: React.FC = () => {
           <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
           <div className="absolute w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
 
-          <div className="relative z-10 w-full max-w-md flex flex-col items-center gap-6 text-center">
-            {/* System Logo Glyph */}
-            <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-[#121212] border border-white/15 flex items-center justify-center font-mono font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400 shadow-[0_0_30px_rgba(139,92,246,0.3)]">
-                R.
+          {/* Ambient glow behind photo */}
+          <div className="absolute w-72 h-72 bg-violet-500/15 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute w-48 h-48 bg-cyan-500/10 rounded-full blur-[60px] translate-x-16 translate-y-8 pointer-events-none" />
+
+          <div className="relative z-10 w-full max-w-sm flex flex-col items-center gap-6 text-center">
+
+            {/* Portrait Photo — loading screen centrepiece */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="relative"
+            >
+              {/* Rotating glow ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-2 rounded-full border border-dashed border-violet-500/40 pointer-events-none"
+              />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                className="absolute -inset-4 rounded-full border border-dashed border-cyan-500/20 pointer-events-none"
+              />
+
+              {/* Photo container */}
+              <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-violet-500/60 shadow-[0_0_40px_rgba(139,92,246,0.5),0_0_80px_rgba(0,240,255,0.15)]">
+                <Image
+                  src="/profile2.jpg"
+                  alt="Rithishwaran K"
+                  fill
+                  priority
+                  className="object-cover object-top"
+                />
+                {/* Gradient overlay for cinema feel */}
+                <div className="absolute inset-0 bg-gradient-to-t from-violet-900/30 to-transparent" />
               </div>
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400" />
+
+              {/* Live pulsing dot */}
+              <span className="absolute bottom-1 right-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-400 border-2 border-[#070707]" />
               </span>
-            </div>
+            </motion.div>
+
+            {/* Name & Title */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="space-y-1"
+            >
+              <p className="text-white font-black text-xl tracking-tight uppercase">
+                RITHISHWARAN K
+              </p>
+              <p className="text-cyan-400 font-mono text-[11px] uppercase tracking-widest">
+                Builder · Founder · AI Engineer
+              </p>
+            </motion.div>
 
             {/* Diagnostic Terminal Text */}
-            <div className="space-y-2">
-              <span className="text-[11px] font-mono tracking-widest text-neutral-500 uppercase">
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase">
                 RITHISHWARAN // DIGITAL LAB
               </span>
               <div className="h-6 flex items-center justify-center">
@@ -126,4 +175,3 @@ export const LoadingScreen: React.FC = () => {
     </AnimatePresence>
   );
 };
-
