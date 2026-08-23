@@ -6,8 +6,86 @@ import { motion } from "framer-motion";
 import { HeroNeuralCore } from "@/components/3d/HeroNeuralCore";
 import { Button3D } from "@/components/ui/Button3D";
 import { TerminalHUD } from "@/components/ui/TerminalHUD";
-import { ArrowDown, Cpu, Sparkles } from "lucide-react";
+import { ArrowDown, Cpu, Sparkles, GraduationCap, MapPin, Star, Calendar, BookOpen, Zap } from "lucide-react";
 import { Icons } from "@/components/ui/Icons";
+
+const infoBadges = [
+  {
+    icon: GraduationCap,
+    label: "DEGREE",
+    value: "B.Tech — Information Technology",
+    color: "violet",
+  },
+  {
+    icon: BookOpen,
+    label: "YEAR",
+    value: "3rd Year · Batch 2024–2028",
+    color: "cyan",
+  },
+  {
+    icon: MapPin,
+    label: "INSTITUTION",
+    value: "NPR College of Engineering & Technology",
+    color: "emerald",
+  },
+  {
+    icon: Star,
+    label: "FOCUS AREA",
+    value: "AI · Full Stack · Data Engineering",
+    color: "amber",
+  },
+  {
+    icon: Zap,
+    label: "VENTURE",
+    value: "Founder @ Apex Labs",
+    color: "pink",
+  },
+  {
+    icon: Calendar,
+    label: "STATUS",
+    value: "Open to Internships & Collaborations",
+    color: "sky",
+  },
+];
+
+const colorMap: Record<string, { badge: string; label: string; value: string; icon: string }> = {
+  violet: {
+    badge: "bg-violet-50 dark:bg-violet-950/40 border-violet-200 dark:border-violet-500/30",
+    label: "text-violet-500 dark:text-violet-400",
+    value: "text-violet-800 dark:text-violet-200",
+    icon: "text-violet-600 dark:text-violet-400",
+  },
+  cyan: {
+    badge: "bg-cyan-50 dark:bg-cyan-950/40 border-cyan-200 dark:border-cyan-500/30",
+    label: "text-cyan-500 dark:text-cyan-400",
+    value: "text-cyan-800 dark:text-cyan-200",
+    icon: "text-cyan-600 dark:text-cyan-400",
+  },
+  emerald: {
+    badge: "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-500/30",
+    label: "text-emerald-500 dark:text-emerald-400",
+    value: "text-emerald-800 dark:text-emerald-200",
+    icon: "text-emerald-600 dark:text-emerald-400",
+  },
+  amber: {
+    badge: "bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-500/30",
+    label: "text-amber-500 dark:text-amber-400",
+    value: "text-amber-800 dark:text-amber-200",
+    icon: "text-amber-600 dark:text-amber-400",
+  },
+  pink: {
+    badge: "bg-pink-50 dark:bg-pink-950/40 border-pink-200 dark:border-pink-500/30",
+    label: "text-pink-500 dark:text-pink-400",
+    value: "text-pink-800 dark:text-pink-200",
+    icon: "text-pink-600 dark:text-pink-400",
+  },
+  sky: {
+    badge: "bg-sky-50 dark:bg-sky-950/40 border-sky-200 dark:border-sky-500/30",
+    label: "text-sky-500 dark:text-sky-400",
+    value: "text-sky-800 dark:text-sky-200",
+    icon: "text-sky-600 dark:text-sky-400",
+  },
+};
 
 export const HeroSection: React.FC = () => {
   return (
@@ -125,6 +203,42 @@ export const HeroSection: React.FC = () => {
               </span>
             </div>
           </div>
+
+          {/* ── Info Card Grid ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full pt-2"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl">
+              {infoBadges.map((badge, i) => {
+                const Icon = badge.icon;
+                const c = colorMap[badge.color];
+                return (
+                  <motion.div
+                    key={badge.label}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.45, delay: 0.6 + i * 0.07, ease: "easeOut" }}
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border backdrop-blur-sm ${c.badge} group hover:scale-[1.02] transition-transform duration-200 cursor-default`}
+                  >
+                    <span className={`shrink-0 p-1.5 rounded-lg bg-white/60 dark:bg-white/5 border border-white/40 dark:border-white/10 ${c.icon}`}>
+                      <Icon className="w-3.5 h-3.5" />
+                    </span>
+                    <div className="min-w-0">
+                      <span className={`block text-[9px] font-mono font-bold uppercase tracking-widest ${c.label}`}>
+                        {badge.label}
+                      </span>
+                      <span className={`block text-[11px] sm:text-xs font-semibold truncate ${c.value}`}>
+                        {badge.value}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Right — 3D Neural Core Visualization (RESTORED) */}
